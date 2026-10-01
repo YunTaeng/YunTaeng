@@ -81,15 +81,13 @@ def render(data):
 <style>
 .bg{{fill:#0d1117}}
 .lbl{{font:10px {FONT};fill:#7d8590}}
-.cmd{{font:13px {FONT};fill:#7ee787}}
 .sum{{font:11px {FONT};fill:#8b949e}}
 .c{{opacity:0;transform-box:fill-box;animation:pop .5s ease-out forwards}}
 @keyframes pop{{from{{opacity:0;transform:translateY(-8px)}}to{{opacity:1;transform:translateY(0)}}}}
 @media (prefers-reduced-motion:reduce){{.c{{animation:none;opacity:1}}}}
 </style>
 <rect class="bg" width="{width}" height="{height}" rx="8"/>
-<text x="16" y="26" class="cmd">{data['username']}@github ~ $ ./contributions.sh</text>
-<text x="16" y="44" class="sum">{summary}</text>
+<text x="16" y="34" class="sum">{summary}</text>
 {month_svg}
 {day_svg}
 {''.join(cells)}
