@@ -13,7 +13,9 @@ GAP = 3
 STEP = CELL + GAP
 LEFT = 40
 TOP = 64
-DELAY_PER_STEP_MS = 14
+COL_DELAY_MS = 45
+ROW_DELAY_MS = 22
+DURATION_MS = 900
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 DAY_LABELS = {1: "Mon", 3: "Wed", 5: "Fri"}
@@ -40,7 +42,7 @@ def build_cells(days, max_count):
         col = (d.toordinal() - origin) // 7
         row = weekday_sunday_first(d)
         x, y = LEFT + col * STEP, TOP + row * STEP
-        delay = (col + row) * DELAY_PER_STEP_MS
+        delay = col * COL_DELAY_MS + row * ROW_DELAY_MS
         title = f"{day['count']} contributions on {day['date']}"
         cells.append(
             f'<rect class="c" x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2" '
@@ -82,8 +84,8 @@ def render(data):
 .bg{{fill:#0d1117}}
 .lbl{{font:10px {FONT};fill:#7d8590}}
 .sum{{font:11px {FONT};fill:#8b949e}}
-.c{{opacity:0;transform-box:fill-box;animation:pop .5s ease-out forwards}}
-@keyframes pop{{from{{opacity:0;transform:translateY(-8px)}}to{{opacity:1;transform:translateY(0)}}}}
+.c{{opacity:0;transform-box:fill-box;animation:pop {DURATION_MS}ms cubic-bezier(.22,.61,.36,1) forwards}}
+@keyframes pop{{from{{opacity:0;transform:translate(-6px,-10px) scale(.6)}}60%{{opacity:1}}to{{opacity:1;transform:translate(0,0) scale(1)}}}}
 @media (prefers-reduced-motion:reduce){{.c{{animation:none;opacity:1}}}}
 </style>
 <rect class="bg" width="{width}" height="{height}" rx="8"/>
